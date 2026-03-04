@@ -6,7 +6,6 @@ pipeline {
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -15,7 +14,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('project-tools/jenkins-examples/Example_2') {
+                dir('Example_2') {
                     sh 'mvn clean compile'
                 }
             }
@@ -23,7 +22,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                dir('project-tools/jenkins-examples/Example_2') {
+                dir('Example_2') {
                     sh 'mvn test'
                 }
             }
@@ -33,29 +32,10 @@ pipeline {
                 }
             }
         }
-
-        // -------------------------------------------------------
-        // Optional Stage: Uncomment and customize to experiment!
-        // -------------------------------------------------------
-        // stage('My Custom Stage') {
-        //     steps {
-        //         dir('project-tools/jenkins-examples/Example_2') {
-        //             // Try adding an echo message or run a specific test class
-        //             // echo 'Hello from my custom stage!'
-        //             // sh 'mvn test -Dtest=GreeterTest#testGreetFormal'
-        //         }
-        //     }
-        // }
-        // -------------------------------------------------------
-
     }
 
     post {
-        success {
-            echo 'Pipeline completed successfully!'
-        }
-        failure {
-            echo 'Pipeline failed. Check the logs above.'
-        }
+        success { echo 'Pipeline completed successfully!' }
+        failure { echo 'Pipeline failed. Check the logs above.' }
     }
 }
