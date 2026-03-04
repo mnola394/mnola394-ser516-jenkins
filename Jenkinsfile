@@ -14,28 +14,28 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('Example_2') {
-                    sh 'mvn clean compile'
-                }
+                sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
-                dir('Example_2') {
-                    sh 'mvn test'
-                }
+                sh 'mvn test'
             }
             post {
                 always {
-                    junit 'Example_2/target/surefire-reports/*.xml'
+                    junit 'target/surefire-reports/*.xml'
                 }
             }
         }
     }
 
     post {
-        success { echo 'Pipeline completed successfully!' }
-        failure { echo 'Pipeline failed. Check the logs above.' }
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the logs above.'
+        }
     }
 }
